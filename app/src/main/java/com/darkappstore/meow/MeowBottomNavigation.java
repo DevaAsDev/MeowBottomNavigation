@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,7 +15,6 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
 
 
 @SuppressWarnings("unused")
@@ -33,13 +31,13 @@ public final class MeowBottomNavigation extends FrameLayout {
     }
 
     private ArrayList<Model> models;
-    private ArrayList<MeowBottomNavigationCell> cells;
+    private final ArrayList<MeowBottomNavigationCell> cells;
     private boolean callListenerWhenIsSelected;
     private int selectedId;
     private ClickListener onClickedListener;
     private ShowListener onShowListener;
     private ReselectListener onReselectListener;
-    private int heightCell;
+    private final int heightCell;
     private boolean isAnimating;
     private int defaultIconColor;
     private int selectedIconColor;
@@ -246,7 +244,7 @@ public final class MeowBottomNavigation extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (this.selectedId == -1) {
             BezierView var10000 = this.bezierView;
-            var10000.setBezierX(Build.VERSION.SDK_INT >= 17 && this.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? (float) this.getMeasuredWidth() + Utils.dipf(this.getContext(), 72) : -Utils.dipf(this.getContext(), 72));
+            var10000.setBezierX(this.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? (float) this.getMeasuredWidth() + Utils.dipf(this.getContext(), 72) : -Utils.dipf(this.getContext(), 72));
         }
 
         if (this.selectedId != -1) {
@@ -268,20 +266,16 @@ public final class MeowBottomNavigation extends FrameLayout {
         cell.setCountBackgroundColor(this.countBackgroundColor);
         cell.setCountTypeface(this.countTypeface);
         cell.setRippleColor(this.rippleColor);
-        cell.setOnClickListener(new ClickListener() {
+        cell.setOnClickListener((ClickListener) item -> {
+            if (MeowBottomNavigation.this.isShowing(model.getId())) {
+                MeowBottomNavigation.this.onReselectListener.onReselectItem(model);
+            }
 
-            @Override
-            public void onClickItem(Model item) {
-                if (MeowBottomNavigation.this.isShowing(model.getId())) {
-                    MeowBottomNavigation.this.onReselectListener.onReselectItem(model);
-                }
-
-                if (!cell.isEnabledCell() && !MeowBottomNavigation.access$isAnimating$p(MeowBottomNavigation.this)) {
-                    MeowBottomNavigation.show$default(MeowBottomNavigation.this, model.getId(), false, 2, null);
-                    MeowBottomNavigation.this.onClickedListener.onClickItem(model);
-                } else if (MeowBottomNavigation.access$getCallListenerWhenIsSelected$p(MeowBottomNavigation.this)) {
-                    MeowBottomNavigation.access$getOnClickedListener$p(MeowBottomNavigation.this).onClickItem(model);
-                }
+            if (!cell.isEnabledCell() && !MeowBottomNavigation.access$isAnimating$p(MeowBottomNavigation.this)) {
+                MeowBottomNavigation.show$default(MeowBottomNavigation.this, model.getId(), false, 2, null);
+                MeowBottomNavigation.this.onClickedListener.onClickItem(model);
+            } else if (MeowBottomNavigation.access$getCallListenerWhenIsSelected$p(MeowBottomNavigation.this)) {
+                MeowBottomNavigation.access$getOnClickedListener$p(MeowBottomNavigation.this).onClickItem(model);
             }
         });
         cell.disableCell();
@@ -294,9 +288,8 @@ public final class MeowBottomNavigation extends FrameLayout {
 
     private void updateAllIfAllowDraw() {
         if (this.allowDraw) {
-            Iterable<MeowBottomNavigationCell> $this$forEach$iv = this.cells;
 
-            for (Object element$iv : $this$forEach$iv) {
+            for (Object element$iv : this.cells) {
                 MeowBottomNavigationCell it = (MeowBottomNavigationCell) element$iv;
                 it.setDefaultIconColor(this.defaultIconColor);
                 it.setSelectedIconColor(this.selectedIconColor);
@@ -316,7 +309,7 @@ public final class MeowBottomNavigation extends FrameLayout {
         this.isAnimating = true;
         int pos = this.getModelPosition(id);
         int nowPos = this.getModelPosition(this.selectedId);
-        int nPos = nowPos < 0 ? 0 : nowPos;
+        int nPos = Math.max(nowPos, 0);
         int var8 = pos - nPos;
         boolean var9 = false;
         int dif = Math.abs(var8);
@@ -345,9 +338,8 @@ public final class MeowBottomNavigation extends FrameLayout {
         }
 
         cell.setFromLeft(pos > nowPos);
-        Iterable<MeowBottomNavigationCell> $this$forEach$iv = this.cells;
 
-        for (Object element$iv : $this$forEach$iv) {
+        for (Object element$iv : this.cells) {
             MeowBottomNavigationCell it = (MeowBottomNavigationCell) element$iv;
             it.setDuration(d);
         }
@@ -581,7 +573,7 @@ public final class MeowBottomNavigation extends FrameLayout {
     }
 
 
-    class MeowBottomNavigation$anim$$inlined$apply$lambda$1 implements ValueAnimator.AnimatorUpdateListener {
+    static class MeowBottomNavigation$anim$$inlined$apply$lambda$1 implements ValueAnimator.AnimatorUpdateListener {
         // $FF: synthetic field
         final float $beforeX;
         // $FF: synthetic field
@@ -617,7 +609,7 @@ public final class MeowBottomNavigation extends FrameLayout {
         }
     }
 
-    final class MeowBottomNavigation$anim$$inlined$apply$lambda$2 implements ValueAnimator.AnimatorUpdateListener {
+    static final class MeowBottomNavigation$anim$$inlined$apply$lambda$2 implements ValueAnimator.AnimatorUpdateListener {
         // $FF: synthetic field
         final MeowBottomNavigation this$0;
         // $FF: synthetic field
