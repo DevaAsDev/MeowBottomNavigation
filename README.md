@@ -1,7 +1,6 @@
 # MeowBottomNavigation
 
-
-
+A simple & curved & material bottom navigation for Android. 
 ## Usage  
 Add Meow Bottom Navigation in xml  
 ```xml  
