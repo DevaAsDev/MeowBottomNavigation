@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'mave-release'
+    id 'maven-publish'
 }
 
 android {
@@ -36,4 +36,15 @@ dependencies {
    // testImplementation 'junit:junit:'
    // androidTestImplementation 'androidx.test.ext:junit:1.1.3'
    // androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //from components.release
+
+            group = 'com.github.DevaAsDev'
+            version = '1.0'
+        }
+    }
 }
