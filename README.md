@@ -16,7 +16,7 @@ build.gradle (project path)
 build.gradle (module path)  
 ```groovy  
 dependencies {  
- implementation 'com.github.DevaAsDev:MeowBottomNavigation:Tag'
+ implementation 'com.github.DevaAsDev:MeowBottomNavigation:v1.0.1'
 }  
 ```
 ## Usage  
