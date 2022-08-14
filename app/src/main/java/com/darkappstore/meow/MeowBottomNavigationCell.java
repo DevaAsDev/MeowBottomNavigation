@@ -7,7 +7,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -297,7 +296,7 @@ final class MeowBottomNavigationCell extends RelativeLayout {
         GradientDrawable d = new GradientDrawable();
         d.setColor(this.circleColor);
         d.setShape(GradientDrawable.OVAL);
-        if (Build.VERSION.SDK_INT >= 21 && !this.isEnabledCell) {
+        if (!this.isEnabledCell) {
             FrameLayout var10000 = (FrameLayout) this._$_findCachedViewById(R.id.fl);
             var10000.setBackground(new RippleDrawable(ColorStateList.valueOf(this.rippleColor), null, d));
         } else {

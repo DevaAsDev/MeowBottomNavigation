@@ -164,14 +164,13 @@ public final class CellImageView extends AppCompatImageView {
                 var10000.cancel();
             }
 
-            this.colorAnimator = ValueAnimator.ofFloat(new float[]{0.0F, 1.0F});
+            this.colorAnimator = ValueAnimator.ofFloat(0.0F, 1.0F);
             var10000 = this.colorAnimator;
             if (var10000 != null) {
-                ValueAnimator var5 = var10000;
-                var5.setDuration(d);
-                var5.setInterpolator((new FastOutSlowInInterpolator()));
-                var5.addUpdateListener((new CellImageView$changeColorByAnim$$inlined$apply$lambda$1(this, d, newColor, lastColor)));
-                var5.start();
+                var10000.setDuration(d);
+                var10000.setInterpolator((new FastOutSlowInInterpolator()));
+                var10000.addUpdateListener((new CellImageView$changeColorByAnim$$inlined$apply$lambda$1(this, d, newColor, lastColor)));
+                var10000.start();
             }
 
         }
@@ -191,7 +190,7 @@ public final class CellImageView extends AppCompatImageView {
             Drawable d = this.getDrawable();
             if (d != null) {
                 int width = MeasureSpec.getSize(widthMeasureSpec);
-                double var6 = (double)((float)width * (float)d.getIntrinsicHeight() / (float)d.getIntrinsicWidth());
+                double var6 = (float)width * (float)d.getIntrinsicHeight() / (float)d.getIntrinsicWidth();
                 boolean var8 = false;
                 int height = (int)Math.ceil(var6);
                 this.setMeasuredDimension(width, height);
