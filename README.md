@@ -1,6 +1,24 @@
 # MeowBottomNavigation
 
 A simple & curved & material bottom navigation for Android. 
+
+## Download  
+build.gradle (project path)  
+```groovy 
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+```
+build.gradle (module path)  
+```groovy  
+dependencies {  
+ implementation 'com.github.DevaAsDev:MeowBottomNavigation:Tag'
+}  
+```
 ## Usage  
 Add Meow Bottom Navigation in xml  
 ```xml  
