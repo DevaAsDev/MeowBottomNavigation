@@ -4,7 +4,7 @@ A simple & curved & material bottom navigation for Android.
 ## Usage  
 Add Meow Bottom Navigation in xml  
 ```xml  
-<com.etebarian.meowbottomnavigation.MeowBottomNavigation  
+<com.darkappstore.meow.MeowBottomNavigation 
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content" />
  ``` 
@@ -19,7 +19,7 @@ Remember that icons must be vector drawable.
 Add vectorDrawables.useSupportLibrary = true to your build.gradle inside defaultConfig{ ... } 
 ## Customization  
 ```xml  
-<com.etebarian.meowbottomnavigation.MeowBottomNavigation  
+<com.darkappstore.meow.MeowBottomNavigation 
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	app:mbn_circleColor="#ffffff"
